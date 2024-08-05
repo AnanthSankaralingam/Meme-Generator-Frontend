@@ -1,0 +1,24 @@
+/* styles/global.css */
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Bebas Neue';
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.p-component {
+  font-family: 'Roboto', sans-serif !important;
+}
+
+.p-button {
+  border-radius: 8px !important;
+}
