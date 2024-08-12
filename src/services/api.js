@@ -1,6 +1,6 @@
 // Service for making API calls to the backend
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL = process.env.REACT_APP_API_URL || 'http://54.193.86.54:8000'; //TODO: dont hardcode
 
 // process user input, returning RAG enhanced gpt response
 export async function processQuery(query) {

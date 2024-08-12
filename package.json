@@ -16,6 +16,7 @@
     "@fontsource/rakkas": "^5.0.20",
     "@mui/icons-material": "^5.16.5",
     "@mui/material": "^5.16.5",
+    "file-saver": "^2.0.5",
     "material-ui-popup-state": "^5.1.2",
     "next": "14.2.5",
     "primereact": "^10.7.0",

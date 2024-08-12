@@ -36,7 +36,7 @@ function LoadingSpinner() {
   }, []);
 
   useEffect(() => {
-    if (progress >= 50 && progress < 75) {
+    if (progress >= 40 && progress < 75) {
       setShowText(true);
     } else {
       setShowText(false);

@@ -66,7 +66,7 @@ export default function Home() {
   
         // start image gen after the text available
         generateImage(query, textResult).then(imageResult => {
-          console.log('Image response:', imageResult);
+          // console.log('Image response:', imageResult);
           setImageResponse(imageResult);
           setImageLoading(false);
         }).catch(err => {

@@ -15,6 +15,8 @@ import {
 
 // Replace the following with an appropriate icon or your custom icon
 import SmsIcon from '@mui/icons-material/Sms';
+import { saveAs } from 'file-saver'
+
 
 const DropdownShareButton = ({ imageUrl }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -35,15 +37,12 @@ const DropdownShareButton = ({ imageUrl }) => {
     event.preventDefault();
     window.open(url, '_blank');
   };
-
+  
+  // Function to save the image
   const handleSaveImage = () => {
-    // Function to save the image
-    const link = document.createElement('a');
-    link.href = shareUrl;
-    link.download = 'meme.png';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    if (imageUrl) {
+      saveAs(imageUrl, 'politix-meme.jpg');
+    }
     handleClose();
   };
 
