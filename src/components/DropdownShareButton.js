@@ -1,4 +1,3 @@
-// components/DropdownShareButton.js
 import React, { useState } from 'react';
 import { Button, Menu, MenuItem } from '@mui/material';
 import { Share as ShareIcon, Save as SaveIcon } from '@mui/icons-material';
@@ -9,14 +8,9 @@ import {
   FacebookIcon,
   TwitterIcon,
   WhatsappIcon,
-  // Uncomment the next line if you have a custom iMessageIcon or use an appropriate icon
-  // iMessageIcon
 } from 'react-share';
-
-// Replace the following with an appropriate icon or your custom icon
 import SmsIcon from '@mui/icons-material/Sms';
 import { saveAs } from 'file-saver'
-
 
 const DropdownShareButton = ({ imageUrl }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -33,12 +27,24 @@ const DropdownShareButton = ({ imageUrl }) => {
   const shareUrl = imageUrl || window.location.href;
   const title = 'Check out this meme!';
 
-  const handleShareClick = (event, url) => {
-    event.preventDefault();
-    window.open(url, '_blank');
+  const handleShareClick = (platform) => {
+    switch (platform) {
+      case 'facebook':
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank');
+        break;
+      case 'twitter':
+        window.open(`https://twitter.com/share?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(title)}`, '_blank');
+        break;
+      case 'whatsapp':
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(title)}%20${encodeURIComponent(shareUrl)}`, '_blank');
+        break;
+      case 'sms':
+        window.open(`sms:&body=${encodeURIComponent(title)}%20${encodeURIComponent(shareUrl)}`, '_blank');
+        break;
+    }
+    handleClose();
   };
   
-  // Function to save the image
   const handleSaveImage = () => {
     if (imageUrl) {
       saveAs(imageUrl, 'politix-meme.jpg');
@@ -68,55 +74,25 @@ const DropdownShareButton = ({ imageUrl }) => {
           },
         }}
       >
-        <MenuItem onClick={handleClose} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <FacebookShareButton url={shareUrl} quote={title}>
-            <FacebookIcon size={32} round />
-            <a 
-              href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`} 
-              onClick={(e) => handleShareClick(e, `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`)} 
-              style={{ display: 'none' }}
-            >
-              Share on Facebook
-            </a>
-          </FacebookShareButton>
+        <MenuItem onClick={() => handleShareClick('facebook')} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <FacebookIcon size={32} round />
+          Facebook
         </MenuItem>
-        <MenuItem onClick={handleClose} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <TwitterShareButton url={shareUrl} title={title}>
-            <TwitterIcon size={32} round />
-            <a 
-              href={`https://twitter.com/share?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(title)}`} 
-              onClick={(e) => handleShareClick(e, `https://twitter.com/share?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(title)}`)} 
-              style={{ display: 'none' }}
-            >
-              Share on Twitter
-            </a>
-          </TwitterShareButton>
+        <MenuItem onClick={() => handleShareClick('twitter')} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <TwitterIcon size={32} round />
+          Twitter
         </MenuItem>
-        <MenuItem onClick={handleClose} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <WhatsappShareButton url={shareUrl} title={title}>
-            <WhatsappIcon size={32} round />
-            <a 
-              href={`https://api.whatsapp.com/send?text=${encodeURIComponent(title)}%20${encodeURIComponent(shareUrl)}`} 
-              onClick={(e) => handleShareClick(e, `https://api.whatsapp.com/send?text=${encodeURIComponent(title)}%20${encodeURIComponent(shareUrl)}`)} 
-              style={{ display: 'none' }}
-            >
-              Share on WhatsApp
-            </a>
-          </WhatsappShareButton>
+        <MenuItem onClick={() => handleShareClick('whatsapp')} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <WhatsappIcon size={32} round />
+          WhatsApp
         </MenuItem>
         <MenuItem onClick={handleSaveImage} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <SaveIcon size={32} round />
+          <SaveIcon size={32} />
           Save Image
         </MenuItem>
-        <MenuItem onClick={handleClose} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-          <a 
-            href={`sms:&body=${encodeURIComponent(title)}%20${encodeURIComponent(shareUrl)}`} 
-            onClick={(e) => handleShareClick(e, `sms:&body=${encodeURIComponent(title)}%20${encodeURIComponent(shareUrl)}`)} 
-            style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textDecoration: 'none' }}
-          >
-            <SmsIcon size={32} round />
-            Share on iMessage
-          </a>
+        <MenuItem onClick={() => handleShareClick('sms')} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <SmsIcon size={32} />
+          iMessage
         </MenuItem>
       </Menu>
     </>

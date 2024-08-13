@@ -1,6 +1,5 @@
-// Service for making API calls to the backend
-
-const API_URL = process.env.REACT_APP_API_URL || 'http://54.193.86.54:8000'; //TODO: dont hardcode
+// service for making API calls to aws backend 
+const API_URL = process.env.REACT_APP_API_URL || 'https://c8h0k9hap4.execute-api.us-west-1.amazonaws.com';
 
 // process user input, returning RAG enhanced gpt response
 export async function processQuery(query) {

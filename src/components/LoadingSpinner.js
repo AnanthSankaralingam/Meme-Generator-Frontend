@@ -49,7 +49,7 @@ function LoadingSpinner() {
         <Typography
           variant="h6"
           sx={{
-            animation: `${fadeIn} 2s ease-in-out infinite`,
+            animation: `${fadeIn} 3s ease-in-out infinite`,
             mb: 2,
           }}
         >

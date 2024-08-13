@@ -9,13 +9,14 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import Image from 'next/image';
 import ResponsiveAppBar from '../components/ResponsiveAppBar';
 import DropdownShareButton from '../components/DropdownShareButton';
+import { Alert, Slide } from '@mui/material';
 
 export default function Home() {
   const [textResponse, setTextResponse] = useState(null);
   const [imageResponse, setImageResponse] = useState(null);
 
   const [textLoading, setTextLoading] = useState(false);
-  const [imageLoading, setImageLoading] = useState(false); //TODO: when image is loaded, allow text input to reappear
+  const [imageLoading, setImageLoading] = useState(false);  
   
   const [showQueryForm, setShowQueryForm] = useState(true); // show app bar and query only when needed
   const [showAppBar, setShowAppBar] = useState(true);
@@ -27,6 +28,7 @@ export default function Home() {
 
   const [isHovering, setIsHovering] = useState(false);
   const [error, setError] = useState(null);
+
   const [openModal, setOpenModal] = useState(false); // image pop up
   const handleOpenModal = () => setOpenModal(true);
   const handleCloseModal = () => setOpenModal(false);
@@ -34,10 +36,18 @@ export default function Home() {
 
   const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // check if mobile device
 
+  const [showMemeAlert, setShowMemeAlert] = useState(false);
 
   const handleFirstResponseComplete = () => {
     setFirstResponseComplete(true);
     setShowSecondResponse(true);
+  };
+
+  const handleMemeAlert = () => {
+    setShowMemeAlert(true);
+    setTimeout(() => {
+      setShowMemeAlert(false);
+    }, 3000);
   };
 
   useEffect(() => {
@@ -48,7 +58,8 @@ export default function Home() {
   }, [textResponse]);
 
   const handleSubmit = async (query) => {
-    setShowQueryForm(false); // text input disappears after sent. TODO: update to fading away and can reappear on touch
+    handleMemeAlert(); 
+    setShowQueryForm(false); //TODO: update to fading away and can reappear on touch
     setTextLoading(true);
     setImageLoading(true);
     setError(null);
@@ -63,21 +74,24 @@ export default function Home() {
         setTextResponse(textResult);
         setTextLoading(false);
         setShowAppBar(false);  // Hide AppBar after text is generated
-  
+        
         // start image gen after the text available
         generateImage(query, textResult).then(imageResult => {
-          // console.log('Image response:', imageResult);
+          handleMemeAlert(); // Trigger meme alert
           setImageResponse(imageResult);
           setImageLoading(false);
+          setShowQueryForm(true); // Show query form again
         }).catch(err => {
           console.error('Image generation error:', err);
           setError('Image generation failed, but text is available.');
           setImageLoading(false);
+          setShowQueryForm(true);
         });
       }).catch(err => {
         setError(err.message);
         setTextLoading(false);
         setImageLoading(false);
+        setShowQueryForm(true);
       });
   
     } catch (err) {
@@ -209,6 +223,37 @@ export default function Home() {
             </Box>
           </Box>
         </Modal>
+        {/* <Slide direction="down" in={showMemeAlert} mountOnEnter unmountOnExit>
+          <Box
+            sx={{
+              position: 'fixed',
+              top: theme.spacing(2),
+              left: '50%',
+              transform: 'translateX(-50%)',
+              zIndex: 9999,
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            <Alert 
+              severity="info" 
+              icon={false}
+              sx={{ 
+                backgroundColor: theme.palette.primary.main,
+                color: theme.palette.primary.contrastText,
+                fontWeight: 'bold',
+                '& .MuiAlert-message': {
+                  padding: '6px 6px',
+                },
+                maxWidth: '50%',  // Limit width on smaller screens
+                width: 'auto',    // Allow content to determine width
+              }}
+            >
+              Scroll!
+            </Alert> //TODO: Fix the scroll for meme popup
+          </Box>
+        </Slide> */}
     </ThemeProvider>
   );
 }
