@@ -38,7 +38,8 @@ function QueryForm({ onSubmit, showForm }) { // imports onSubmit as parameter
         width: '80%', 
         height: 'auto', // Ensure it keeps its height if dynamic
         backgroundColor: theme.palette.background.default, 
-        padding: theme.spacing(2),
+        padding: isMobile ? theme.spacing(1) : theme.spacing(2),
+        boxShadow: '0px -2px 10px rgba(0,0,0,0.1)',
       }}>
       <Box display="flex" justifyContent="center" alignItems="center">   
         <Box 

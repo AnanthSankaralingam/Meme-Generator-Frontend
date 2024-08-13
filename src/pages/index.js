@@ -71,10 +71,18 @@ export default function Home() {
   
       // update UI with text as soon as possible
       textPromise.then(textResult => {
-        setTextResponse(textResult);
+        // setTextResponse(textResult);
+        // setTextLoading(false);
+        // setShowAppBar(false);  // Hide AppBar after text is generated
+        // Set blue response first
+        setTextResponse({blue_response: textResult.blue_response, blue_link: textResult.blue_link});
         setTextLoading(false);
-        setShowAppBar(false);  // Hide AppBar after text is generated
-        
+        setShowAppBar(false);
+
+        // Set red response after a delay
+        setTimeout(() => {
+          setTextResponse(textResult);
+        }, 2000);
         // start image gen after the text available
         generateImage(query, textResult).then(imageResult => {
           handleMemeAlert(); // Trigger meme alert
@@ -106,7 +114,7 @@ export default function Home() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <ResponsiveAppBar />
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{ px: isMobile ? 1 : 2 }}>
         <Box 
           my={4} 
           sx={{ 

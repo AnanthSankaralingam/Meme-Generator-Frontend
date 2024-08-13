@@ -39,7 +39,7 @@ export function ResponseDisplay({ response, link, error, isBlue, onTypingComplet
 
       typedInstanceRef.current = new Typed(typedRef.current, {
         strings: [formattedResponse],
-        typeSpeed: 10,
+        typeSpeed: isMobile ? 4 : 10,
         cursorChar: '',
         contentType: 'html', // allows HTML in typed text
         onComplete: () => {
@@ -84,7 +84,7 @@ export function ResponseDisplay({ response, link, error, isBlue, onTypingComplet
           <Typography ref={titleRef} variant="h4" sx={{ mb: 2, fontSize: isMobile ? '1.5rem' : '2rem', }}>{title}</Typography>
           <span ref={typedRef} style={{
             // Adjust font size for mobile
-            fontSize: isMobile ? '0.9rem' : '1rem',
+            fontSize: isMobile ? '0.75rem' : '1rem',
           }}></span>
           {link && (
             <Box mt={2}>
