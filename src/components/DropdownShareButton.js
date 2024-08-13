@@ -10,11 +10,14 @@ import {
   WhatsappIcon,
 } from 'react-share';
 import SmsIcon from '@mui/icons-material/Sms';
-import { saveAs } from 'file-saver'
+import { saveAs } from 'file-saver';
+import { useTheme, useMediaQuery } from '@mui/material';
 
 const DropdownShareButton = ({ imageUrl }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -47,7 +50,31 @@ const DropdownShareButton = ({ imageUrl }) => {
   
   const handleSaveImage = () => {
     if (imageUrl) {
-      saveAs(imageUrl, 'politix-meme.jpg');
+      if (isMobile) {
+        // For mobile devices, we'll use the Web Share API if available
+        if (navigator.share) {
+          fetch(imageUrl)
+            .then(response => response.blob())
+            .then(blob => {
+              const file = new File([blob], 'politix-meme.jpg', { type: 'image/jpeg' });
+              navigator.share({
+                files: [file],
+                title: 'Politix Meme',
+                text: 'Check out this meme!',
+              }).then(() => {
+                console.log('Successful share');
+              }).catch((error) => {
+                console.log('Error sharing', error);
+              });
+            });
+        } else {
+          // Fallback for mobile devices that don't support Web Share API
+          window.open(imageUrl, '_blank');
+        }
+      } else {
+        // For desktop, use file-saver as before
+        saveAs(imageUrl, 'politix-meme.jpg');
+      }
     }
     handleClose();
   };
@@ -88,7 +115,7 @@ const DropdownShareButton = ({ imageUrl }) => {
         </MenuItem>
         <MenuItem onClick={handleSaveImage} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <SaveIcon size={32} />
-          Save Image
+          {isMobile ? 'Save to Camera Roll' : 'Save Image'}
         </MenuItem>
         <MenuItem onClick={() => handleShareClick('sms')} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <SmsIcon size={32} />

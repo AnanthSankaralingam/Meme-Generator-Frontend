@@ -89,6 +89,7 @@ export default function Home() {
           setImageResponse(imageResult);
           setImageLoading(false);
           setShowQueryForm(true); // Show query form again
+          setShowAppBar(true); // show app bar again
         }).catch(err => {
           console.error('Image generation error:', err);
           setError('Image generation failed, but text is available.');
