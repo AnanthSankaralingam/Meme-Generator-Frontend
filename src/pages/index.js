@@ -1,6 +1,6 @@
 // home page 
 import React, { useState, useEffect, useRef } from 'react';
-import { Container, Box, Paper, Divider, CssBaseline, Modal, Typography } from '@mui/material';
+import { Container, Box, Divider, CssBaseline, Modal } from '@mui/material';
 import QueryForm from '../components/QueryForm';
 import { ResponseDisplay } from '../components/ResponseDisplay';
 import { processQuery, generateImage } from '../services/api';
@@ -9,7 +9,6 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import Image from 'next/image';
 import ResponsiveAppBar from '../components/ResponsiveAppBar';
 import DropdownShareButton from '../components/DropdownShareButton';
-import { Alert, Slide } from '@mui/material';
 
 export default function Home() {
   const [textResponse, setTextResponse] = useState(null);
@@ -24,7 +23,6 @@ export default function Home() {
   // display responses one by one
   const [showSecondResponse, setShowSecondResponse] = useState(false); 
   const [firstResponseComplete, setFirstResponseComplete] = useState(false);
-  const firstResponseRef = useRef(null);
 
   const [isHovering, setIsHovering] = useState(false);
   const [error, setError] = useState(null);
@@ -37,11 +35,6 @@ export default function Home() {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // check if mobile device
 
   const [showMemeAlert, setShowMemeAlert] = useState(false);
-
-  const handleFirstResponseComplete = () => {
-    setFirstResponseComplete(true);
-    setShowSecondResponse(true);
-  };
 
   const handleMemeAlert = () => {
     setShowMemeAlert(true);
@@ -59,7 +52,7 @@ export default function Home() {
 
   const handleSubmit = async (query) => {
     handleMemeAlert(); 
-    setShowQueryForm(false); //TODO: update to fading away and can reappear on touch
+    setShowQueryForm(false);  
     setTextLoading(true);
     setImageLoading(true);
     setError(null);
@@ -71,18 +64,18 @@ export default function Home() {
   
       // update UI with text as soon as possible
       textPromise.then(textResult => {
-        // setTextResponse(textResult);
-        // setTextLoading(false);
-        // setShowAppBar(false);  // Hide AppBar after text is generated
-        // Set blue response first
         setTextResponse({blue_response: textResult.blue_response, blue_link: textResult.blue_link});
         setTextLoading(false);
         setShowAppBar(false);
 
         // Set red response after a delay
-        setTimeout(() => {
+        if(!isMobile)
+          setTimeout(() => {
+            setTextResponse(textResult);
+          }, 3000);
+        else
           setTextResponse(textResult);
-        }, 2000);
+
         // start image gen after the text available
         generateImage(query, textResult).then(imageResult => {
           handleMemeAlert(); // Trigger meme alert
@@ -95,18 +88,21 @@ export default function Home() {
           setError('Image generation failed, but text is available.');
           setImageLoading(false);
           setShowQueryForm(true);
+          setShowAppBar(true);
         });
       }).catch(err => {
         setError(err.message);
         setTextLoading(false);
         setImageLoading(false);
         setShowQueryForm(true);
+        setShowAppBar(true);
       });
   
     } catch (err) {
       setError(err.message);
       setTextLoading(false);
       setImageLoading(false);
+      setShowAppBar(true);
     }
   };
   

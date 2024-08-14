@@ -1,18 +1,8 @@
 // component to display text and image responses - returned in index.js after prompt submit
 import React, { useEffect, useRef } from 'react';
-import { Box, Alert, Button, Typography } from '@mui/material';
-import Typed from 'typed.js';
-import {theme, styled} from '@/styles/theme';
+import { Box, Button, Typography } from '@mui/material';
+import Typed from 'typed.js'; // web
 import { useTheme, useMediaQuery } from '@mui/material';
-
-
-// make text fade in instead of just print
-const fadeInKeyframes = `
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-`;
 
 export function ResponseDisplay({ response, link, error, isBlue, onTypingComplete }) {
   const theme = useTheme();
@@ -20,6 +10,13 @@ export function ResponseDisplay({ response, link, error, isBlue, onTypingComplet
   const typedInstanceRef = useRef(null);
   const titleRef = useRef(null);
   const isMobile = useMediaQuery(theme.breakpoints.down('sm')); // check if mobile device
+
+  const textStyle = {
+    fontFamily: 'Quicksand, sans-serif',
+    color: theme.palette.text.primary,
+    fontWeight: 'bold',
+    fontSize: isMobile ? '0.9rem' : '1rem',
+  };
 
   useEffect(() => {
     if (response && typedRef.current && !typedInstanceRef.current) {
@@ -39,7 +36,7 @@ export function ResponseDisplay({ response, link, error, isBlue, onTypingComplet
 
       typedInstanceRef.current = new Typed(typedRef.current, {
         strings: [formattedResponse],
-        typeSpeed: isMobile ? 1 : 7,
+        typeSpeed: isMobile ? 0 : 7,
         cursorChar: '',
         contentType: 'html', // allows HTML in typed text
         onComplete: () => {
@@ -51,10 +48,7 @@ export function ResponseDisplay({ response, link, error, isBlue, onTypingComplet
       
       // Apply CSS styles for darker text
       const typedElement = typedRef.current;
-      typedElement.style.fontFamily = 'Quicksand, sans-serif';
-      typedElement.style.color = theme.palette.text.primary; // Whiter text
-      typedElement.style.fontWeight = 'bold';
-      typedElement.style.fontWeight = '1rem';
+      Object.assign(typedElement.style, textStyle);
 
     }
 

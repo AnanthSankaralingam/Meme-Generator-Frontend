@@ -5,7 +5,8 @@ import { Box, LinearProgress, Typography, keyframes } from '@mui/material';
 
 const fadeIn = keyframes`
   0% { opacity: 0; }
-  50% { opacity: 1; }
+  40% { opacity: 1; }
+  60% { opacity: 1; }
   100% { opacity: 0; }
 `;
 
@@ -25,7 +26,7 @@ function LoadingSpinner() {
         if (oldProgress === 100) {
           return 100;
         }
-        const diff = 100 / 30; // 100% over 28 seconds
+        const diff = 100 / 30; // 100% over 30 seconds
         return Math.min(oldProgress + diff, 100);
       });
     }, 1000);
@@ -36,7 +37,7 @@ function LoadingSpinner() {
   }, []);
 
   useEffect(() => {
-    if (progress >= 40 && progress < 75) {
+    if (progress >= 20 && progress < 75) {
       setShowText(true);
     } else {
       setShowText(false);
@@ -49,11 +50,11 @@ function LoadingSpinner() {
         <Typography
           variant="h6"
           sx={{
-            animation: `${fadeIn} 3s ease-in-out infinite`,
+            animation: `${fadeIn} 4s ease-in-out infinite`,
             mb: 2,
           }}
         >
-          Almost there!
+          {"Meme's almost there!"}
         </Typography>
       )}
       <Box sx={{ width: '80%', maxWidth: 400 }}>

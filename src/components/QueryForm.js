@@ -24,6 +24,7 @@ function QueryForm({ onSubmit, showForm }) { // imports onSubmit as parameter
   const handleSubmit = (e) => {
     e.preventDefault();
     onSubmit(query);
+    setQuery('');
   };
 
   return (
