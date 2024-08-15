@@ -91,7 +91,7 @@ function ResponsiveAppBar() {
                 textDecoration: 'none',
               }}
             >
-              PolitiMeme
+              {isMobile ? "Politix" : "PolitiMeme"}
             </Typography>
 
             {/* Navigation buttons */}
