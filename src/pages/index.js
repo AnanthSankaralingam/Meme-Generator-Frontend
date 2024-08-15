@@ -70,12 +70,12 @@ export default function Home() {
           setShowAppBar(false);
 
         // Set red response after a delay
-        // if(!isMobile)
-        setTimeout(() => {
+        if(!isMobile)
+          setTimeout(() => {
+            setTextResponse(textResult);
+          }, 4000);
+        else
           setTextResponse(textResult);
-        }, 4000);
-        // else
-        //   setTextResponse(textResult);
 
         // start image gen after the text available
         generateImage(query, textResult).then(imageResult => {
