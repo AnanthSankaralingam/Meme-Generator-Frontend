@@ -66,15 +66,16 @@ export default function Home() {
       textPromise.then(textResult => {
         setTextResponse({blue_response: textResult.blue_response, blue_link: textResult.blue_link});
         setTextLoading(false);
-        setShowAppBar(false);
+        if (!isMobile)
+          setShowAppBar(false);
 
         // Set red response after a delay
-        if(!isMobile)
-          setTimeout(() => {
-            setTextResponse(textResult);
-          }, 3000);
-        else
+        // if(!isMobile)
+        setTimeout(() => {
           setTextResponse(textResult);
+        }, 4000);
+        // else
+        //   setTextResponse(textResult);
 
         // start image gen after the text available
         generateImage(query, textResult).then(imageResult => {

@@ -36,7 +36,7 @@ export function ResponseDisplay({ response, link, error, isBlue, onTypingComplet
 
       typedInstanceRef.current = new Typed(typedRef.current, {
         strings: [formattedResponse],
-        typeSpeed: isMobile ? 0 : 7,
+        typeSpeed: isMobile ? 1 : 6,
         cursorChar: '',
         contentType: 'html', // allows HTML in typed text
         onComplete: () => {

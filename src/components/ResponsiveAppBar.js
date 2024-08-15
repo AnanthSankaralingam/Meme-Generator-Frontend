@@ -91,7 +91,7 @@ function ResponsiveAppBar() {
                 textDecoration: 'none',
               }}
             >
-              Politix
+              PolitiMeme
             </Typography>
 
             {/* Navigation buttons */}
@@ -183,9 +183,9 @@ function ResponsiveAppBar() {
           </Typography>
           <Typography id="instruction-modal-description" variant = "h6" sx={{ mt: 2 }}>
             <ol>
-              <li>Ask how the 2024 election will affect your life</li>
+              <li>Ask how the 2024 election will affect <em>your</em> life</li>
               <li>Get a bulleted answer, backed by sources. Click learn more!</li>
-              <li>Get a meme.</li>
+              <li>Scroll down and get a meme.</li>
               <li>Share!</li>
             </ol>
           </Typography>
@@ -221,7 +221,7 @@ function ResponsiveAppBar() {
           <Typography id="about-modal-description" variant="h6" sx={{ mt: 2 }}>
             Built by <a href="https://www.linkedin.com/in/ananth-s/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}>
             Ananth</a> and <a href="https://www.linkedin.com/in/tianqiye1900/" target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}> Tianqi</a>, for fun.
-            Built with <a href='https://glif.app/glifs' target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}> Glif </a> and ChromaDB.
+            Built with <a href='https://glif.app/glifs' target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'underline' }}> Glif</a>, OctoAI and ChromaDB.
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: { xs: 'flex-end', sm: 'flex-start' }, mt: 2 }}>
             <Button onClick={handleCloseAbout}>Close</Button>
