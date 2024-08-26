@@ -133,7 +133,7 @@ function QueryForm({ onSubmit, showForm }) { // imports onSubmit as parameter
               }}
             >
               <ReactTyped
-                strings={['What will my taxes look like?', 'What about my house?', 'TikTok?']}
+                strings={['What will my taxes look like?', 'What about my house?', 'TikTok?', '']}
                 typeSpeed={35}
                 backSpeed={45}
                 backDelay={1000}
