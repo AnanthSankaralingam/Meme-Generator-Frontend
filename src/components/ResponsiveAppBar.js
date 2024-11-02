@@ -179,15 +179,30 @@ function ResponsiveAppBar() {
           p: 4,
         }}>
           <Typography id="instruction-modal-title" align="center" variant="h5">
-            How To Use Political Meme Gen 
+            Political Meme Gen 
           </Typography>
           <Typography id="instruction-modal-description" variant = "h6" sx={{ mt: 2 }}>
-            <ol>
-              <li>Ask how the 2024 election will affect <em>your</em> life</li>
-              <li>Get a bulleted answer, backed by sources. Click learn more!</li>
-              <li>Scroll down and get a meme.</li>
-              <li>Share!</li>
-            </ol>
+          <p>
+            PolitiMeme is now PARKED, now that the election is done. Feel free to check out the demo{' '}
+            <a 
+              href="https://www.youtube.com/watch?v=2Qfm_Nghm7U" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ color: '#0066cc', textDecoration: 'underline' }}
+            >
+              here
+            </a>
+            {' '}or reach out to Ananth{' '}
+            <a 
+              href="https://www.linkedin.com/in/ananth-s/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              style={{ color: '#0066cc', textDecoration: 'underline' }}
+            >
+              here
+            </a>
+            . Thanks!
+          </p>
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: { xs: 'flex-end', sm: 'flex-start' }, mt: 2 }}>
             <Button onClick={handleCloseInstruction}>Close</Button>

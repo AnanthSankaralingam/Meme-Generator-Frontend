@@ -113,6 +113,19 @@ export default function Home() {
       <CssBaseline />
       <ResponsiveAppBar />
       <Container maxWidth="lg" sx={{ px: isMobile ? 1 : 2 }}>
+        <div className="fixed inset-0 w-screen h-screen bg-black overflow-hidden">
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-screen h-screen">
+          <iframe
+            className="w-full h-full object-cover"
+            src="https://www.youtube.com/embed/2Qfm_Nghm7U?autoplay=1&mute=1"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        </div>
+      </div>
+    </div>
         <Box 
           my={4} 
           sx={{ 
@@ -229,37 +242,7 @@ export default function Home() {
             </Box>
           </Box>
         </Modal>
-        {/* <Slide direction="down" in={showMemeAlert} mountOnEnter unmountOnExit>
-          <Box
-            sx={{
-              position: 'fixed',
-              top: theme.spacing(2),
-              left: '50%',
-              transform: 'translateX(-50%)',
-              zIndex: 9999,
-              width: '100%',
-              display: 'flex',
-              justifyContent: 'center',
-            }}
-          >
-            <Alert 
-              severity="info" 
-              icon={false}
-              sx={{ 
-                backgroundColor: theme.palette.primary.main,
-                color: theme.palette.primary.contrastText,
-                fontWeight: 'bold',
-                '& .MuiAlert-message': {
-                  padding: '6px 6px',
-                },
-                maxWidth: '50%',  // Limit width on smaller screens
-                width: 'auto',    // Allow content to determine width
-              }}
-            >
-              Scroll!
-            </Alert> //TODO: Fix the scroll for meme popup
-          </Box>
-        </Slide> */}
+      
     </ThemeProvider>
   );
 }
